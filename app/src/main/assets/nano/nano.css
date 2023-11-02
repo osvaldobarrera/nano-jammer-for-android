@@ -445,9 +445,18 @@ div#soundsWindow .button {
 
 /**************************************************/
 
+/*
 div#cartridgesWindow {
     width:            500px;
     height:           300px;
+    top:               80px;
+    left:             140px;
+}
+*/
+
+div#cartridgesWindow {
+    width:            250px;
+    height:           150px;
     top:               80px;
     left:             140px;
 }
