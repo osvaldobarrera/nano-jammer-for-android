@@ -1286,6 +1286,8 @@ function onLoadButton() {
     executeWithSaveCheck('You will lose your unsaved changes if you load a new cartridge without saving first. Load it anyway?', function () {
         setActiveCartridge(cartridgeArray[cartridgeArrayScrollIndex]);
     });
+    toggleCartridge();
+    setTimeout(onPlayButton, 250);
 }
 
 
@@ -1884,6 +1886,16 @@ function onToggle(button) {
     }
 }
 
+function toggleCartridge() {
+    var win = document.getElementById("cartridgesWindow");
+    if (win) {
+        if (win.classList.contains('hidden')) {
+            win.classList.remove('hidden');
+        } else {
+            win.classList.add('hidden');
+        }
+    }
+}
 
 /** Called by the IDE radio buttons */
 function onRadio() {
@@ -2245,7 +2257,15 @@ let justLoggedIn = true;
             
             buttonElement.onmousedown = (function(b) {
                 return function (event) {
-                    //console.log(this, 'onmousedown');
+                    console.log(this, 'onmousedown');
+                    navigator.vibrate(50);
+                    try {
+                        window.JSInterface.Vibrate();
+                    } catch (error) {
+                        console.error(error);
+                      // Expected output: ReferenceError: nonExistentFunction is not defined
+                      // (Note: the exact output may be browser-dependent)
+                    }
                     if (! emulatorButtonState[b]) {
                         // fake an event
                         onEmulatorKeyDown({keyCode:ascii(b), stopPropagation:Math.abs, preventDefault:Math.abs});
@@ -2270,7 +2290,8 @@ let justLoggedIn = true;
             
             buttonElement.onmouseup = buttonElement.onmouseleave = (function(b) {
                 return function (event) {
-                    //console.log(this, 'onmouseup');
+                    // console.log(this, 'onmouseup');
+                    // navigator.vibrate(200);
                     if (emulatorButtonState[b]) {
                         // fake an event
                         onEmulatorKeyUp({keyCode:ascii(b), stopPropagation:Math.abs, preventDefault:Math.abs});
@@ -2284,7 +2305,9 @@ let justLoggedIn = true;
     } // for each control
 
     setActiveCartridge(activeCartridge, true);
-    
+
+    setUIMode('Minimal', true);
+    setTimeout(onPlayButton, 250);
     if (code) {
         // Jump to emulator if loaded from a URL cartridge. Must appear after
         // setActiveCartridge so that the game is loaded and before makeCartridgeWindowContents
