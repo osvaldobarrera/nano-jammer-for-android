@@ -27,6 +27,7 @@ for a ∈ aln
   if (a.x - 10)² + (a.y - y)² < 16
     // Hit the ship!
     text("BOOM!", 32, 32, 4)
+    sound(28)
     show
     wait
     reset
@@ -36,6 +37,46 @@ for a ∈ aln
     // Pick a new position when off screen
     a.x = 120 + 50ξ
     a.y = 4 + 56ξ`,
+
+
+`#nanojam Star Attack,5
+ if τ ≟ 0
+   y = 32
+   // Aliens
+   aln = [{x:100, y:10, s:4}, {x:140, y:40, s:20}, {x:180, y:60, s:4}]
+
+ // Stars
+ for s < 128
+   // Compute a "random" column on each row
+   // for a star, and then cycle it left
+   h = hash(s)
+   pset(128 - ((128 + τ) * h % 128), s, gray(⅓h))
+
+ y = mid(4, y + joy.y, 80) //limit top, movement, limit bottom
+ x = mid(10, x + joy.x, 40)
+
+ // Player ship
+ draw(38, x, y, 641)
+
+ // alternate animation frames
+ k = ⌊⅛τ % 2⌋
+
+ // Aliens
+ for a ∈ aln
+   draw(a.s + k, a.x, a.y, 645)
+   if (a.x - x)² + (a.y - y)² < 16
+     // Hit the ship!
+     text("BOOM!", 32, 32, 4)
+     sound(28)
+     show
+     wait
+     reset
+
+   a.x -= 1
+   if a.x < -4
+     // Pick a new position when off screen
+     a.x = 120 + 50ξ
+     a.y = 4 + 56ξ
 
 
 `#nanojam Space Dash

@@ -314,6 +314,7 @@ for a ∈ aln
   if (a.x - 10)² + (a.y - y)² < 16
     // Hit the ship!
     text("BOOM!", 32, 32, 4)
+    sound(28)
     show
     wait
     reset
