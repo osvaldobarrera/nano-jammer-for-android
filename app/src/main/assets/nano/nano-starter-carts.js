@@ -39,7 +39,7 @@ for a ∈ aln
     a.y = 4 + 56ξ`,
 
 
-`#nanojam Star Attack,5
+`#nanojam Star Attack 128,5
  if τ ≟ 0
    y = 32
    // Aliens
@@ -76,7 +76,7 @@ for a ∈ aln
    if a.x < -4
      // Pick a new position when off screen
      a.x = 120 + 50ξ
-     a.y = 4 + 56ξ
+     a.y = 4 + 56ξ`,
 
 
 `#nanojam Space Dash
